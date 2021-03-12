@@ -1,3 +1,4 @@
+import random
 import requests
 
 import src.spreadsheets as sh
@@ -10,9 +11,12 @@ def extract_user_id(message):
 def parse_text(text):
     try:
         val_1, val_2 = text.split('=')
+        val_1, val_2 = int(val_1), val_2.strip()
+        if abs(val_1) < 0 or len(val_2) < 1:
+             raise InvalidInputException("Неверная сумма или категория")
     except ValueError as exc:
-        raise InvalidInputException("Неверный формат ввода. Нужно [сумма(целое число с '-' если расход) - категория]")
-    return int(val_1.strip()), val_2.strip()
+        raise InvalidInputException("Неверный формат ввода. Нужно [{сумма}(целое число с '-' если расход) = {категория}]. Например '-1000 = Курочка'")
+    return val_1, val_2
 
 def parse_message(message):
     user_id = extract_user_id(message)
@@ -33,6 +37,11 @@ def save_transaction(data):
         send_message(exc, user_id)
     else:
         sh.save_into_new_raw(amount, category, user)
+        is Settings.ENBLE_GOOD_PHRASES:
+            if Settings.USERS[user_id] == 'Юля':
+                phrase = random.choice(Settings.PHRASES)
+                if phrase:
+                    send_message(phrase), user_id)
 
 def send_message(message, chat_id):
 

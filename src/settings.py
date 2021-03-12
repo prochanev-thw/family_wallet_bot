@@ -12,3 +12,11 @@ class Settings:
     GSPRED_JSON_KEY = os.getenv('GSPRED_JSON_KEY')
     TELEGRAM_URI = 'https://api.telegram.org/bot'
     TELEGRAM_TOKEN  = os.getenv('TELEGRAM_TOKEN')
+    ENBLE_GOOD_PHRASES = True
+    PHRASES = [
+        'Умничка, так держать!',
+        'Ты супер детка!',
+        'Юля, ты мое солнышко!',
+        'Червяк! :)',
+        'Уууеее, молдчинка!',
+    ] + [0, 0, 0]
