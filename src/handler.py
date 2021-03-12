@@ -1,10 +1,8 @@
-import os
 import json
-import requests
-from pprint import pprint
+from src.bot import save_transaction
+
 
 def handler(event, context):
+    save_transaction(json.loads(event))
+    return {'success': 200}
 
-    response = requests.get('https://api.ipify.org/?format=json').json()
-
-    return {'ip': response}
