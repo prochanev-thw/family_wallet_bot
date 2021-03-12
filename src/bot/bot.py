@@ -37,11 +37,11 @@ def save_transaction(data):
         send_message(exc, user_id)
     else:
         sh.save_into_new_raw(amount, category, user)
-        is Settings.ENBLE_GOOD_PHRASES:
+        if Settings.ENABLE_GOOD_PHRASES:
             if Settings.USERS[user_id] == 'Юля':
                 phrase = random.choice(Settings.PHRASES)
                 if phrase:
-                    send_message(phrase), user_id)
+                    send_message(phrase, user_id)
 
 def send_message(message, chat_id):
 
