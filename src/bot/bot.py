@@ -1,7 +1,7 @@
 import random
 import requests
 
-import src.spreadsheets as sh
+from src.spreadsheets import save_into_new_raw
 from src.settings import Settings
 from src.exceptions import UnknowUserException, InvalidInputException, FamilyWalletException
 
@@ -36,7 +36,7 @@ def save_transaction(data):
     except FamilyWalletException as exc:
         send_message(exc, user_id)
     else:
-        sh.save_into_new_raw(amount, category, user)
+        save_into_new_raw(amount, category, user)
         if Settings.ENABLE_GOOD_PHRASES:
             if Settings.USERS[user_id] == 'Юля':
                 phrase = random.choice(Settings.PHRASES)
