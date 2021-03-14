@@ -5,6 +5,11 @@ from src.spreadsheets import save_into_new_raw
 from src.settings import Settings
 from src.exceptions import UnknowUserException, InvalidInputException, FamilyWalletException
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 def extract_user_id(message):
     return message['from']['id']
 
@@ -31,6 +36,7 @@ def parse_message(message):
 def save_transaction(data):
     message = data['message']
     user_id = extract_user_id(message)
+    logger.info('Message %s from user %s', message, user_id)
     try:
         amount, category, user = parse_message(message)
     except FamilyWalletException as exc:
