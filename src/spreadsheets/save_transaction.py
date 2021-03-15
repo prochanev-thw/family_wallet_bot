@@ -1,4 +1,5 @@
 from datetime import datetime
+import pytz
 from src.spreadsheets.gspread_factory import gspread_factory
 
 import logging
@@ -6,13 +7,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-now = datetime.now(tz='Asia/Yekaterinburg').strftime('%d.%m.%Y %H:%M:%S.%f')
+now = datetime.now(pytz.timezone('Asia/Yekaterinburg')).strftime('%d.%m.%Y %H:%M:%S.%f')
 
 def save_into_new_raw(amount, category, user):
     sh = gspread_factory().open('family-wallet').worksheet("sheet1")
     save_row(sh, amount, category, user)
 
 def save_row(sh, amount, category, user):
+    
     active_row = next_available_row(sh)
 
     logger.info(
