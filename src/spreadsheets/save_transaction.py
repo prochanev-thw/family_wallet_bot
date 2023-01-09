@@ -7,7 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-now = datetime.now(pytz.timezone('Europe/Moscow')).strftime('%d.%m.%Y %H:%M:%S.%f')
+now = datetime.now(pytz.timezone('Etc/GMT+3')).strftime('%d.%m.%Y %H:%M:%S.%f')
 
 def save_into_new_raw(amount, category, user):
     sh = gspread_factory().open('family-wallet').worksheet("sheet1")
